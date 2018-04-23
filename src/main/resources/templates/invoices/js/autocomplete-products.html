@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<body>
+	<script type="application/javascript" th:fragment="javascript">
+		
+		
+		$(document).ready(function() {
+			$("#search_product").autocomplete({
+				source : function(req, res) {
+					$.ajax({
+						url : '/factura/cargar-producto/' + req.term,
+						dataType : "json",
+						data : {
+							term : req.term
+						},
+						success : function(data) {
+							res($.map(data, function(item) {
+								return {
+									value : item.id,
+									label : item.name,
+									price : item.price
+								};
+							}));
+						},
+					});
+				},
+				select : function(event, ui) {
+					//$("#search_product").val(ui.item.label);
+					//Cuando se seleccione un producto de la lista,
+					//agregamos la linea de producto a la tabla si no existe ya.
+					//En caso de que exista, incrementamos en 1 su cantidad
+					if(itemsHelper.hasProduct(ui.item.value)){
+						itemsHelper.incrementQuantity(ui.item.value, ui.item.price);
+						return false;
+					}
+					var line = $("#templateInvoiceItem").html();
+					line = line.replace(/{ID}/g, ui.item.value);
+					line = line.replace(/{NAME}/g, ui.item.label);
+					line = line.replace(/{PRICE}/g, ui.item.price);
+					$("#loadProductItems tbody").append(line);
+					
+					//Borramos el contenido del cuadro de búsqueda
+					$("#search_product").val("");
+					
+					//Calculamos el importe del producto
+					itemsHelper.calculatePrice(ui.item.value, ui.item.price, 1);
+					
+					return false;
+				}
+			});
+			$("form").submit(function(){
+				$("#templateInvoiceItem").remove();
+			});
+		});
+		
+		var itemsHelper = {
+				calculatePrice: function(id, price, quantity){
+					$("#total_price_" + id).html(parseInt(price) * parseInt(quantity));
+					this.calculateTotal();
+				},
+				hasProduct: function(id){
+					var result = false;
+					$("input[name='item_id[]']").each(function(){
+						if(parseInt(id) == parseInt($(this).val())){
+							result = true;
+						}
+					});
+					return result;
+				},
+				incrementQuantity: function(id, price){
+					var quantity = $("#quantity_" + id).val() ? parseInt($("#quantity_" + id).val()) : 0;
+					$("#quantity_" + id).val(++quantity);
+					this.calculatePrice(id, price, quantity);
+				},
+				deleteLine: function(id){
+					$("#row_" + id).remove();
+					this.calculateTotal();
+				},
+				calculateTotal: function(){
+					var total = 0;
+					$("span[id^='total_price_']").each(function(){
+						total += parseInt($(this).html());
+					});
+					$("#total").html(total);
+				}
+		}
+	
+	
+	</script>
+</body>
+</html>

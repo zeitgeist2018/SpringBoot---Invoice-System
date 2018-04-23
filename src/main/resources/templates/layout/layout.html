@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+<meta charset="UTF-8"></meta>
+<title th:text="'Spring Boot - ' + ${title}"></title>
+
+<!-- CSS -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"></link>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous"></link>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet"></link>
+
+<!-- SCRIPTS -->
+<script type="application/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="application/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script type="application/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+
+	<header th:fragment="menu">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+			<a class="navbar-brand" th:href="@{'/'}">Spring boot</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link" href="#"
+						th:href="@{/clientes}" th:text="#{text.layout.clients}"></a></li>
+				</ul>
+				<ul class="navbar-nav navbar-right">
+					<li sec:authorize="!isAuthenticated()"><a
+						class="btn btn-outline-primary" th:href="@{/login}" th:text="#{text.layout.login}"></a></li>
+					<li sec:authorize="isAuthenticated()" class="dropdown show"><a
+						class="btn btn-outline-primary dropdown-toggle" href="#"
+						role="button" id="dropdownMenuLink" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"><span
+							sec:authentication="name"></span></a>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<form th:action="@{/logout}" method="post" id="logoutForm">
+								<button onclick="document.getElementById('logoutForm').submit();"
+									class="dropdown-item" th:text="#{text.layout.logout}"></button>
+							</form>
+						</div></li>
+				</ul>
+				<ul class="navbar-nav navbar-right mx-4">
+					<!-- SELECTOR DE IDIOMA CON DROPDOWN -->
+					<li class="dropdown show">
+						<a class="btn btn-outline-primary dropdown-toggle" href="#"
+							role="button" id="dropdownLanguage" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false" th:text="#{text.language.language}">
+						</a>
+						<div class="dropdown-menu" aria-labelledby="dropdownLanguage">
+							<a th:href="@{/locale(lang=es_ES)}" class="dropdown-item" th:text="#{text.language.es}"></a>
+							<a th:href="@{/locale(lang=en_US)}" class="dropdown-item" th:text="#{text.language.en}"></a>
+						</div>
+					</li>
+					<!-- SELECTOR DE IDIOMA CON BOTONES -->
+					<!-- <li class="nav-item mx-1">
+						<a href="?lang=es_ES" class="btn btn-outline-success">ES</a>
+					</li>
+					<li class="nav-item mx-1">
+						<a href="?lang=en_US" class="btn btn-outline-success">EN</a>
+					</li>  -->
+				</ul>
+			</div>
+		</nav>
+
+		<div class="alert alert-success" th:if="${success != null}"
+			th:text="${success}"></div>
+		<div class="alert alert-danger" th:if="${error != null}"
+			th:text="${error}"></div>
+		<div class="alert alert-warning" th:if="${warning != null}"
+			th:text="${warning}"></div>
+		<div class="alert alert-info" th:if="${info != null}"
+			th:text="${info}"></div>
+	</header>
+
+	<div class="container"></div>
+
+	<footer th:fragment="footer" class="container">
+		<hr />
+		<p sec:authorize="isAuthenticated()">
+			Usuario: <span sec:authentication="name"></span> | Roles: <span
+				sec:authentication="principal.authorities"></span>
+		</p>
+		<p>
+			<img alt="spring" th:src="@{/img/spring.jpg}" />
+		</p>
+		<p>
+			Creado por <strong>&copy; Cristian Lobo</strong> - 2018
+		</p>
+	</footer>
+
+</body>
+</html>
