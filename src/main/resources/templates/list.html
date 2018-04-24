@@ -11,8 +11,9 @@
 			<div class="card-header" th:text="${title}"></div>
 			<div class="card-body">
 				<div class="card-title">
-					<a th:href="@{/form}" class="btn btn-primary btn-xs"
+					<a th:href="@{/form}" class="btn btn-primary btn-xs my-2"
 						sec:authorize="hasRole('ROLE_ADMIN')">Crear cliente </a>
+					<a th:href="@{'/clientes'(format=csv)}" class="btn btn-success btn-xs my-2">Exportar CSV</a>
 				</div>
 				<table class="table table-striped table-bordered">
 					<thead class="thead-inverse">
