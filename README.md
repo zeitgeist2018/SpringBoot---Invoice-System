@@ -13,9 +13,11 @@ The app's main language is Spanish, but it is partially translated into English.
 
 
 ## Default users
-With ROLE_ADMIN:
+
+-With ROLE_ADMIN:
 * username: admin
 * password: 12345
-With ROLE_USER:
+
+-With ROLE_USER:
 * username: user
 * password: 12345
