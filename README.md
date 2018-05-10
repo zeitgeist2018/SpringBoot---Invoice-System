@@ -1,7 +1,16 @@
 # SpringBoot-Invoice-System
 Simple invoice management system built with SpringBoot 2, Spring JPA, Spring Security and Thymeleaf
 
+# Screenshots
 ![alt text](https://raw.githubusercontent.com/zeitgeist2018/SpringBoot---Invoice-System/master/images/logged-in-as-admin.png)
+
+![alt text](https://raw.githubusercontent.com/zeitgeist2018/SpringBoot---Invoice-System/master/images/invoice-details.png)
+
+![alt text](https://raw.githubusercontent.com/zeitgeist2018/SpringBoot---Invoice-System/master/images/logged-in-as-user.png)
+
+![alt text](https://raw.githubusercontent.com/zeitgeist2018/SpringBoot---Invoice-System/master/images/not-signed-in.png)
+
+![alt text](https://raw.githubusercontent.com/zeitgeist2018/SpringBoot---Invoice-System/master/images/user-details-admin.png)
 
 ## Run it
 You are free to clone this repository and open it on Eclipse JEE. Don't forget to configure the database in the file 'application.properties'.
