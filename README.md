@@ -1,5 +1,5 @@
 # SpringBoot-Invoice-System
-Simple invoice management system built with SpringBoot 2, Spring JPA, Spring Security and Thymeleaf
+Simple invoice management system built with SpringBoot 2, Spring JPA, Spring Security, Thymeleaf, jQuery, Bootstrap 4 and FontsAwesome.
 
 # Screenshots
 ![alt text](https://raw.githubusercontent.com/zeitgeist2018/SpringBoot---Invoice-System/master/images/logged-in-as-admin.png)
