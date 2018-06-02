@@ -47,7 +47,7 @@ public class InvoiceController {
 		model.put("invoice", invoice);
 		model.put("title", "Crear factura");
 
-		return "invoices/form";
+		return "/invoices/form";
 	}
 
 	@GetMapping(value="/cargar-producto/{search}", produces={"application/json"})
@@ -67,12 +67,12 @@ public class InvoiceController {
 		
 		if(result.hasErrors()) {
 			model.addAttribute("title", "Crear Factura");
-			return "invoices/form";
+			return "/invoices/form";
 		}
 		if(itemId == null || itemId.length == 0) {
 			model.addAttribute("title", "Crear Factura");
 			model.addAttribute("error", "La factura debe tener productos");
-			return "invoices/form";
+			return "/invoices/form";
 		}
 		for(int i=0; i<itemId.length; i++) {
 			Product product = clientService.findProductById(itemId[i]);
@@ -99,7 +99,7 @@ public class InvoiceController {
 		}
 		model.addAttribute("invoice", invoice);
 		model.addAttribute("title", "Factura: ".concat(invoice.getDescription()));
-		return "invoices/view";
+		return "/invoices/view";
 	}
 
 	@GetMapping("/eliminar/{id}")

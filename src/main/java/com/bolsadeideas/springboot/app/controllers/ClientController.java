@@ -99,7 +99,7 @@ public class ClientController {
 			model.put("client", client);
 			model.put("title", "Detalles cliente - " + client.getName());
 		}
-		return "ver";
+		return "/ver";
 	}
 
 	@RequestMapping(value= {"/clientes", "/"}, method=RequestMethod.GET)
@@ -153,7 +153,7 @@ public class ClientController {
 		Client client = new Client();
 		model.put("title", "Formulario de cliente");
 		model.put("client", client);
-		return "form";
+		return "/form";
 	}
 
 	//@Secured("ROLE_ADMIN")
@@ -165,7 +165,7 @@ public class ClientController {
 			if(client != null) {
 				model.put("title", "Editar cliente");
 				model.put("client", client);
-				return "form";
+				return "/form";
 			}else {
 				flash.addFlashAttribute("error", "El ID no es válido");
 				return "redirect:/clientes";
@@ -181,7 +181,7 @@ public class ClientController {
 	public String guardar(@Valid Client client, BindingResult result, Model model, @RequestParam("file") MultipartFile photo, RedirectAttributes flash, SessionStatus sessionStatus) {
 		if(result.hasErrors()) {
 			model.addAttribute("title", "Formulario de cliente");
-			return "form";
+			return "/form";
 		}
 		if(!photo.isEmpty()) {
 			/*
