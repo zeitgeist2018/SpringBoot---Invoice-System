@@ -144,7 +144,7 @@ public class ClientController {
 		model.addAttribute("title", messageSource.getMessage("text.list.title", null, locale));
 		model.addAttribute("clients", clients);
 		model.addAttribute("page", render);
-		return "list";
+		return "/list";
 	}
 
 	@Secured("ROLE_ADMIN")
